@@ -26,7 +26,7 @@ class Persona{
 	method celulas(celulasAfectadas){
 	    return celulasAfectadas
 	}
-	method celulasEnElCuerpo(celulasAfectadas){
+	method celulasTotalesDelCuerpo(celulasAfectadas){
 		celulasDelCuerpo=celulasDelCuerpo - self.celulas(celulasAfectadas)
 	}
 }
@@ -42,11 +42,10 @@ class EnfermedadInfecciosa{ //malaria, otitis
 		celulas=2*reproducirCelulas
 	}
 	method agresiva(persona){
-		return celulas >(0.1)*persona.celulas()		
+		return celulas >(0.1)*persona.celulasTotalesDelCuerpo()		
       }
 		
 }
-
 
 class EnfermedadAutoinmune{ //lupus
 	
@@ -61,7 +60,7 @@ class EnfermedadAutoinmune{ //lupus
 	 }
 	 
 	 method agresiva(persona){
-		return 30*(persona.celulas())		
+		return 30*(self.causarEfecto(persona))	
       }
 }
 
