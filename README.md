@@ -1,6 +1,7 @@
 # Ejercicios  de  Práctica Dr.casa
 Dr. Casa - Temporada 1
 [Clases, Colecciones]
+
 Everybody dies! El Departamento de Diagnóstico del Hospital Universitario Tecnológico nos pidió que les diéramos una mano con un sistema que les ayude a hacer su trabajo. Después de una interconsulta con distintos docentes de la materia optamos por modelarlo en objetos.
 Cualquier persona puede contraer enfermedades (no puede contraer más de 5). En el momento que contrae una enfermedad no le causa ningún efecto, pero cada día que vive una persona con su enfermedad se producen sus efectos.
 De toda enfermedad se conoce la cantidad de células que amenaza de la persona enferma, que depende de qué enfermedad sea y puede ir cambiando a medida que transcurre el tiempo, atenuándose o agravándose. El efecto que provoca en una persona es:
