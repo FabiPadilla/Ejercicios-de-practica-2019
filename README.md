@@ -1,1 +1,1 @@
-# Paradigmas-GO
+# Ejercicios  de  Práctica
