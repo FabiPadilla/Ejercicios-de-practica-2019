@@ -60,7 +60,7 @@ class EnfermedadAutoinmune{ //lupus
 	 }
 	 
 	 method agresiva(persona){
-	    30*(self.causarEfecto(persona))	
+	    return 30*(self.causarEfecto(persona))	
       }
 }
 
