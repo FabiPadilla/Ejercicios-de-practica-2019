@@ -1,0 +1,35 @@
+import example.*
+
+describe "efecto de logan"{
+	const logan = new Persona()
+    //const malaria =new EnfermedadInfecciosa(celulas=500)
+    //const otitis=new EnfermedadInfecciosa(celulas=100)
+    const lupus=new EnfermedadAutoinmune()
+    
+/*test "aumentar la temperatura de Logan " {
+    
+	malaria.causarEfecto(logan)
+    assert.equals(36.5,logan.temperatura())
+}
+
+test "aumentar mucho la temperatura de Logan " {
+    
+	lupus.causarEfecto(logan)
+    assert.equals(2036,logan.temperatura())
+}
+
+test "pasar un dia Logan " {
+    
+	logan.contraerEnfermedad(malaria)
+	logan.contraerEnfermedad(lupus)
+	logan.contraerEnfermedad(otitis)
+	logan.vivirUnDia()
+    assert.equals(2037.5,logan.temperatura())   
+}*/
+   
+test "destruir las celulas"{
+	
+	lupus.causarEfecto(logan)
+	assert.equals(0,logan.celulas(0))
+}
+}
