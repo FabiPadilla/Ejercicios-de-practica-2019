@@ -53,9 +53,10 @@ class EnfermedadAutoinmune  //lupus es autoInmune
     
     
 /*Las clases enfermedades Infecciosas y AutoInmunes son polimórficas,
-porque se llaman igual los métodos en común como así también
-los retornos.Utilizo una variable del tipo enfermedad en la clase
-Persona y no significa que exista polimorfismo en esta Clase ,solo 
-la utilizo porque cada enfermedad puede devolverme las celulas que 
-amenaza y así utlizarlar en el método celulasEnElCuerpo().
+porque se llaman igual los métodos en común y también tienen 
+retornos o no aquellos métodos que se llaman igual.
+Utilizo una variable del tipo enfermedad en la clase
+Persona ,pero no significa que exista polimorfismo en esta Clase ,solo 
+la utilizo porque cada enfermedad puede devolverme las células que 
+amenaza y así utlizarla en el método celulasEnElCuerpo().
  */
