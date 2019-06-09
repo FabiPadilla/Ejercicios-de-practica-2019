@@ -27,7 +27,7 @@ class Persona
 
 class EnfermedadInfecciosa  //malaria y otitis son infecciosas
    { 
-	var  property celulasQueAmenazo = 500
+	var  property celulasQueAmenazo = 500 
 	
 	method causarEfecto(persona) = persona.incrementarTemp(celulasQueAmenazo/1000)	
 	
@@ -39,16 +39,16 @@ class EnfermedadInfecciosa  //malaria y otitis son infecciosas
    }
 
 class EnfermedadAutoinmune  //lupus es autoInmune
-    { 	
-	var  property celulasQueAmenazo = 10000
+   { 	
+	var  property celulasQueAmenazo  = 0
 	
 	//method causarEfecto(persona){
 		//persona.incrementarTemp(2000)
 	//}
 	
-	 method causarEfecto(persona) = persona.celulasEnElCuerpo(0)
+	 method causarEfecto(persona) = persona.celulasEnElCuerpo()
 	 
-	 method agresiva(persona) = return 30*(persona.viviUnDia())
+	 method agresiva(persona) = return 30*persona.viviUnDia()
 	 
 	 method celulasQueAmenazo() = return celulasQueAmenazo		     
     }
@@ -58,7 +58,7 @@ class EnfermedadAutoinmune  //lupus es autoInmune
     const malaria = new EnfermedadInfecciosa()
     const otitis = new EnfermedadInfecciosa()
     const lupus = new EnfermedadAutoinmune()
-    const malaria2 = new EnfermedadInfecciosa()
+    const malariaPolenta = new EnfermedadInfecciosa()
     
 /*Las clases enfermedades Infecciosas y AutoInmunes son polimórficas,
 porque se llaman igual los métodos en común y también tienen 
