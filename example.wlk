@@ -10,7 +10,7 @@ class Persona
 	method contraerEnfermedad(enfer) 
 	 {
 	 if (enfermedades.size()<5 ){enfermedades.add(enfer)}
-	 else throw new Exception ("No se puede agregar la enfermedad,superaste la cantidad de enfermedades")
+	 else throw new Exception ("Superaste la cantidad de enfermedades")
 	 }
 	
 	method estaEncoma() = return temp < 45
