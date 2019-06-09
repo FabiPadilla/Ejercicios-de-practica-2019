@@ -7,11 +7,13 @@ class Persona
 	var  property celulasDelCuerpo
 	var  property enfermedad
 	
-	method contraerEnfermedad(enfer) = enfermedades.add(enfer)
+	method contraerEnfermedad(enfer) 
+	 {
+	 if (enfermedades.size()<5 ){enfermedades.add(enfer)}
+	 else throw new Exception ("No se puede agregar la enfermedad,superaste la cantidad de enfermedades")
+	 }
 	
-	method cantEnfermedad() = return enfermedades.size()<5
-	
-	method estaEncoma() = return temp > 45
+	method estaEncoma() = return temp < 45
 	
 	method incrementarTemp(cambioDeTemp) {temp=+ cambioDeTemp}
 	
@@ -51,6 +53,12 @@ class EnfermedadAutoinmune  //lupus es autoInmune
 	 method celulasQueAmenazo() = return celulasQueAmenazo		     
     }
     
+    const logan = new Persona()
+    const frank = new Persona()
+    const malaria = new EnfermedadInfecciosa()
+    const otitis = new EnfermedadInfecciosa()
+    const lupus = new EnfermedadAutoinmune()
+    const malaria2 = new EnfermedadInfecciosa()
     
 /*Las clases enfermedades Infecciosas y AutoInmunes son polimórficas,
 porque se llaman igual los métodos en común y también tienen 
@@ -60,3 +68,8 @@ Persona ,pero no significa que exista polimorfismo en esta Clase ,solo
 la utilizo porque cada enfermedad puede devolverme las células que 
 amenaza y así utlizarla en el método celulasEnElCuerpo().
  */
+
+
+
+
+
