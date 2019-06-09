@@ -1,35 +1,63 @@
 import example.*
 
-describe "efecto de logan"{
+describe "efecto de logan"
+    {
 	const logan = new Persona()
-    //const malaria =new EnfermedadInfecciosa(celulas=500)
-    //const otitis=new EnfermedadInfecciosa(celulas=100)
-    const lupus=new EnfermedadAutoinmune()
+    const malaria = new EnfermedadInfecciosa(celulas=500)
+    const otitis = new EnfermedadInfecciosa(celulas=100)
+    const lupus = new EnfermedadAutoinmune()
+    const malaria2 = new EnfermedadInfecciosa(celulas=800)
     
-/*test "aumentar la temperatura de Logan " {
-    
-	malaria.causarEfecto(logan)
-    assert.equals(36.5,logan.temperatura())
-}
-
-test "aumentar mucho la temperatura de Logan " {
-    
-	lupus.causarEfecto(logan)
-    assert.equals(2036,logan.temperatura())
-}
-
-test "pasar un dia Logan " {
-    
-	logan.contraerEnfermedad(malaria)
-	logan.contraerEnfermedad(lupus)
-	logan.contraerEnfermedad(otitis)
-	logan.vivirUnDia()
-    assert.equals(2037.5,logan.temperatura())   
-}*/
-   
-test "destruir las celulas"{
+test "aumentar la temperatura de Logan "  
+    {    
+	 malaria.causarEfecto(logan)
+     assert.equals(36.5,logan.temperatura())
+    }
+test "aumentar mucho la temperatura de Logan " 
+    {    
+	 lupus.causarEfecto(logan)
+     assert.equals(2036,logan.temperatura())
+    }
+test "pasar un dia Logan " 
+    {    
+	 logan.contraerEnfermedad(malaria)
+	 logan.contraerEnfermedad(lupus)
+	 logan.contraerEnfermedad(otitis)
+	 logan.vivirUnDia()
+     assert.equals(2037.5,logan.temperatura())   
+    }
+test "destruir las celulas"
+    {
+	 lupus.causarEfecto(logan)
+	 assert.equals(0,logan.celulas(0))
+    }
+test "Nr.1:Hacer que frank contraiga malaria de 800 células dañadas"
+    {
+	 frank.contraerEnfermedad(malaria2)
+	 malaria2.causarEfecto(frank)
+     assert.equals(800,frank.temperatura())
+    }
+test "Nro.2:Hacer que una malaria(la que contrajo Logan se reproduzca"
+    {
 	
-	lupus.causarEfecto(logan)
-	assert.equals(0,logan.celulas(0))
-}
+    }
+test "Nro.3:Hacer que Logan viva un día de si vida"
+    {
+	
+    }
+test "Nro.4:Que el sistema permita verificar,
+la cantidad de células de Logan que estén amenazadas por enfermedades agresivas" 
+    {
+	
+    }
+test "Nro.5:Que el sistema permita verificar,la enfermedad de Logan que más células afecte" 
+    {
+	
+	}
+test "Nro.6:Si Logan está en coma,lo que sucede si su temperatura es 45° o si tiene menos 
+de 1.000.000 de células"
+    {
+	
+    }	
+	
 }
