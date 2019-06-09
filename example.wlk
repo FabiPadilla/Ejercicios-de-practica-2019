@@ -5,7 +5,7 @@ class Persona
 	var enfermedades=[]
 	var temp=36
 	var  property celulasDelCuerpo
-	var enfermedad
+	var  property enfermedad
 	
 	method contraerEnfermedad(enfer) = enfermedades.add(enfer)
 	
@@ -17,16 +17,15 @@ class Persona
 	
 	method temperatura() = return temp
 
-	method vivirUnDia() = enfermedades.forEach({enf => enf.causarEfecto(self)})
+	method viviUnDia() = enfermedades.forEach({enf => enf.causarEfecto(self)})
 	
 	method celulasEnElCuerpo() {celulasDelCuerpo = celulasDelCuerpo - enfermedad.celulasQueAmenazo()}
 	
-	
    }
 
-class EnfermedadInfecciosa  //malaria, otitis
+class EnfermedadInfecciosa  //malaria y otitis son infecciosas
    { 
-	var  property celulasQueAmenazo
+	var  property celulasQueAmenazo = 500
 	
 	method causarEfecto(persona) = persona.incrementarTemp(celulasQueAmenazo/1000)	
 	
@@ -37,10 +36,9 @@ class EnfermedadInfecciosa  //malaria, otitis
 	method  celulasQueAmenazo() = return celulasQueAmenazo
    }
 
-
-class EnfermedadAutoinmune  //lupus
+class EnfermedadAutoinmune  //lupus es autoInmune
     { 	
-	//var celulasQueAmenazo
+	var  property celulasQueAmenazo = 10000
 	
 	//method causarEfecto(persona){
 		//persona.incrementarTemp(2000)
@@ -48,19 +46,16 @@ class EnfermedadAutoinmune  //lupus
 	
 	 method causarEfecto(persona) = persona.celulasEnElCuerpo(0)
 	 
-	 method agresiva(persona) = return 30*(persona.vivirUnDia())		     
+	 method agresiva(persona) = return 30*(persona.viviUnDia())
+	 
+	 method celulasQueAmenazo() = return celulasQueAmenazo		     
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+/*Las clases enfermedades Infecciosas y AutoInmunes son polimórficas,
+porque se llaman igual los métodos en común como así también
+los retornos.Utilizo una variable del tipo enfermedad en la clase
+Persona y no significa que exista polimorfismo en esta Clase ,solo 
+la utilizo porque cada enfermedad puede devolverme las celulas que 
+amenaza y así utlizarlar en el método celulasEnElCuerpo().
+ */
