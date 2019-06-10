@@ -1,11 +1,13 @@
-/*Ejercicio tipo parcial Dr.Casa 2019 */
+/*Ejercicio tipo parcial Dr.Casa 2019 
+  Parte 1: Clases y Colecciones
+*/
 
 class Persona
    {	
 	var enfermedades=[]
 	var temp=36
-	var  property celulasDelCuerpo
-	var  property enfermedad
+	var  property celulasDelCuerpo=2000000
+	
 	
 	method contraerEnfermedad(enfer) 
 	 {
@@ -13,44 +15,48 @@ class Persona
 	 else throw new Exception ("No se puede agregar la enfermedad,superaste la cantidad de enfermedades")
 	 }
 	
-	method estaEncoma() = return temp < 45
+	method estaEnComa() = return (temp >= 45  || celulasDelCuerpo<1000000)
 	
-	method incrementarTemp(cambioDeTemp) {temp=+ cambioDeTemp}
+	method incrementarTemp(cambioDeTemp) {temp=temp + cambioDeTemp}
 	
 	method temperatura() = return temp
 
-	method viviUnDia() = enfermedades.forEach({enf => enf.causarEfecto(self)})
+	method viviUnDia() = enfermedades.forEach({enfer=> enfer.causarEfecto(self)})
 	
-	method celulasEnElCuerpo() {celulasDelCuerpo = celulasDelCuerpo - enfermedad.celulasQueAmenazo()}
+	method celulasEnElCuerpo() = celulasDelCuerpo //sirve para saber cuando es agresiva una enfermedad infecciosa
+	
+	method enfermedadQueMasAfecta() = enfermedades.maximum()
+	
+	method recibirMedicamento(){}
 	
    }
 
 class EnfermedadInfecciosa  //malaria y otitis son infecciosas
    { 
-	var  property celulasQueAmenazo = 500 
+	var  property celulasQueAmenazo = 500
 	
 	method causarEfecto(persona) = persona.incrementarTemp(celulasQueAmenazo/1000)	
 	
-	method reproduccionDeCelulas(celulasAmenazantes) {celulasQueAmenazo=2*celulasAmenazantes}
+	method reproduccionDeCelulas() {celulasQueAmenazo=2*celulasQueAmenazo}
 	
 	method agresiva(persona) = return celulasQueAmenazo > (0.1)*persona.celulasEnElCuerpo()		
 	
-	method  celulasQueAmenazo() = return celulasQueAmenazo
+	//method  celulasQueAmenazo() = return celulasQueAmenazo
    }
 
 class EnfermedadAutoinmune  //lupus es autoInmune
    { 	
-	var  property celulasQueAmenazo  = 0
+	var  property celulasQueAmenazo = 0
 	
 	//method causarEfecto(persona){
 		//persona.incrementarTemp(2000)
 	//}
 	
-	 method causarEfecto(persona) = persona.celulasEnElCuerpo()
+	 method causarEfecto(persona) = persona.celulasEnElCuerpo()==0 //destruye la cantidad de celulas amenazadas
 	 
 	 method agresiva(persona) = return 30*persona.viviUnDia()
 	 
-	 method celulasQueAmenazo() = return celulasQueAmenazo		     
+	 //method celulasQueAmenazo() = return celulasQueAmenazo		     
     }
     
     const logan = new Persona()
@@ -70,6 +76,13 @@ amenaza y así utlizarla en el método celulasEnElCuerpo().
  */
 
 
+/*Parte 2: Herencia - Redefinición - Super */
 
-
-
+class Medicos inherits Persona{
+	
+	var property cantMedicamento
+	
+	method antenderPaciente(){return 15*cantMedicamento}
+		
+	method meContagio(enfermedad){ self.contraerEnfermedad(enfermedad)}
+}
