@@ -5,9 +5,9 @@
 class Persona
    {	
 	var enfermedades=[]
-	var temp=36
+	var  property temp=36
 	var  property celulasDelCuerpo=2000000
-	
+	var miEnfermedad
 	
 	method contraerEnfermedad(enfer) 
 	 {
@@ -15,20 +15,21 @@ class Persona
 	 else throw new Exception ("No se puede agregar la enfermedad,superaste la cantidad de enfermedades")
 	 }
 	
-	method estaEnComa() = return (temp >= 45  || celulasDelCuerpo<1000000)
+	method estaEnComa() = return (temp >= 45 || celulasDelCuerpo<1000000)
 	
 	method incrementarTemp(cambioDeTemp) {temp=temp + cambioDeTemp}
 	
-	method temperatura() = return temp
+	method temperatura(mitemp) {temp=mitemp}
 
 	method viviUnDia() = enfermedades.forEach({enfer=> enfer.causarEfecto(self)})
 	
 	method celulasEnElCuerpo() = celulasDelCuerpo //sirve para saber cuando es agresiva una enfermedad infecciosa
 	
-	method enfermedadQueMasAfecta() = enfermedades.maximum()
+	method enfermedadQueMasAfecta() = return enfermedades.max({enfermedad => enfermedad.celulasQueAmenazo()})
 	
-	method recibirMedicamento(){}
+	method recibirMedicamento()= enfermedades.forEach({medico => medico.atenderPaciente(self)})
 	
+	method estoyCurado(){return not miEnfermedad.causaEfecto(self)}
    }
 
 class EnfermedadInfecciosa  //malaria y otitis son infecciosas
@@ -41,7 +42,7 @@ class EnfermedadInfecciosa  //malaria y otitis son infecciosas
 	
 	method agresiva(persona) = return celulasQueAmenazo > (0.1)*persona.celulasEnElCuerpo()		
 	
-	//method  celulasQueAmenazo() = return celulasQueAmenazo
+	method  celulasQueAmenazo() = return celulasQueAmenazo
    }
 
 class EnfermedadAutoinmune  //lupus es autoInmune
@@ -56,7 +57,7 @@ class EnfermedadAutoinmune  //lupus es autoInmune
 	 
 	 method agresiva(persona) = return 30*persona.viviUnDia()
 	 
-	 //method celulasQueAmenazo() = return celulasQueAmenazo		     
+	 method celulasQueAmenazo() = return celulasQueAmenazo		     
     }
     
     const logan = new Persona()
@@ -80,9 +81,25 @@ amenaza y así utlizarla en el método celulasEnElCuerpo().
 
 class Medicos inherits Persona{
 	
-	var property cantMedicamento
+	var property medicamento=150
 	
-	method antenderPaciente(){return 15*cantMedicamento}
+	method antenderPaciente(persona) = persona.recibirMedicamento(15*medicamento)
 		
-	method meContagio(enfermedad){ self.contraerEnfermedad(enfermedad)}
+	method curarme(){}
 }
+
+//class Medicamentos{
+	
+//	var property miMedicamento=160
+	
+	//method medicamento() = return miMedicamento	
+//}
+
+class Muerte
+   {
+	method causarEfecto(persona){ return persona.temperatura(0)}
+   }
+
+
+const house = new Medicos()
+const laMuerte = new Muerte()
