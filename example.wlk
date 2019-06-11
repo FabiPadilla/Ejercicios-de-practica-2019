@@ -23,7 +23,7 @@ class Persona
 
 	method viviUnDia() = enfermedades.forEach({enfer=> enfer.causarEfecto(self)})
 	
-	method celulasEnElCuerpo(celulas) { celulasDelCuerpo=celulas} //sirve para saber cuando es agresiva una enfermedad infecciosa
+	method celulasEnElCuerpo() = return celulasDelCuerpo //sirve para saber cuando es agresiva una enfermedad infecciosa
 	
 	method enfermedadQueMasAfecta() = return enfermedades.max({enfermedad => enfermedad.celulasQueAmenazo()})
 	
@@ -47,13 +47,13 @@ class EnfermedadInfecciosa  //malaria y otitis son infecciosas
 
 class EnfermedadAutoinmune  //lupus es autoInmune
    { 	
-	var  property celulasQueAmenazo = 0
+	var  property celulasQueAmenazo 
 	
 	//method causarEfecto(persona){
 		//persona.incrementarTemp(2000)
 	//}
 	
-	 method causarEfecto(persona) = persona.celulasEnElCuerpo(0) //destruye la cantidad de celulas amenazadas
+	 method causarEfecto(persona) = persona.celulasEnElCuerpo()- celulasQueAmenazo//destruye la cantidad de celulas amenazadas
 	 
 	 method agresiva(persona) = return 30*persona.viviUnDia()
 	 
