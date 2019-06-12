@@ -7,7 +7,7 @@ class Persona
 	var enfermedades=[]
 	var  property temp=36
 	var  property celulasDelCuerpo=2000000
-	var miEnfermedad
+	
 	
 	method contraerEnfermedad(enfer) 
 	 {
@@ -29,12 +29,15 @@ class Persona
 	
 	method recibirMedicamento()= enfermedades.forEach({medico => medico.atenderPaciente(self)})
 	
-	method estoyCurado(){return not miEnfermedad.causaEfecto(self)}
+	// este metodo  esta mal .revisarlo como dijo Juan Bono
+	//method estoyCurado() {enfermedades.sum( {miEnfermedad => miEnfermedad.celulasQueAmenazo()==0})}
+	
+	method curado(mienfermedad){return enfermedades.sum( {enfermedad => enfermedad.celulasQueAfecto() })==0}
    }
 
 class EnfermedadInfecciosa  //malaria y otitis son infecciosas
    { 
-	var  property celulasQueAmenazo = 500
+	var  property celulasQueAmenazo = 0
 	
 	method causarEfecto(persona) = persona.incrementarTemp(celulasQueAmenazo/1000)	
 	
@@ -42,7 +45,7 @@ class EnfermedadInfecciosa  //malaria y otitis son infecciosas
 	
 	method agresiva(persona) = return celulasQueAmenazo > (0.1)*persona.celulasEnElCuerpo()		
 	
-	method  celulasQueAmenazo() = return celulasQueAmenazo
+	method  celulasQueAfecto() = return celulasQueAmenazo
    }
 
 class EnfermedadAutoinmune  //lupus es autoInmune
@@ -57,7 +60,7 @@ class EnfermedadAutoinmune  //lupus es autoInmune
 	 
 	 method agresiva(persona) = return 30*persona.viviUnDia()
 	 
-	 method celulasQueAmenazo() = return celulasQueAmenazo		     
+	 method celulasQueAfecto() = return celulasQueAmenazo		     
     }
     
     const logan = new Persona()
@@ -83,11 +86,19 @@ class Medicos inherits Persona{
 	
 	var property medicamento=150
 	
-	method antenderPaciente(persona) = persona.recibirMedicamento(15*medicamento)
+	method antendePaciente(persona) = persona.recibirMedicamento(15*medicamento)
 		
-	method curarme(){}
+	method contagiar(enfermedad){enfermedad.causarEfecto(self)}
+	
 }
 
+class JefeDepartamento inherits Medicos{
+	
+	var property persona
+	
+	method ordenoQue(subordinado){subordinado.atendePaciente(persona)}
+	
+}
 //class Medicamentos{
 	
 //	var property miMedicamento=160
