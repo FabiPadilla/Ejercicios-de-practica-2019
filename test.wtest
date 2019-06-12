@@ -2,11 +2,19 @@ import example.*
 
 describe "efecto de logan"
     {
+    var temp=36
+    var celulasDelCuerpoL=3000000
+    var celulasDelCuerpoF=3500000
 	const logan = new Persona()
-    const malaria = new EnfermedadInfecciosa(celulas=500)
-    const otitis = new EnfermedadInfecciosa(celulas=100)
-    const lupus = new EnfermedadAutoinmune()
-    const malaria2 = new EnfermedadInfecciosa(celulas=800)
+	const frank = new Persona()
+    const malaria = new EnfermedadInfecciosa(celulasQueAmenazo=500)
+    const otitis = new EnfermedadInfecciosa(celulasQueAmenazo=100)
+    const lupus = new EnfermedadAutoinmune(celulasQueAmenazo=10000)
+    const malariapolenta = new EnfermedadInfecciosa(celulasQueAmenazo=800)
+    
+    //const house = new JefeDepartamento()
+    //const cameron = new Medicos()
+    //const laMuerte = new Muerte()
     
 test "aumentar la temperatura de Logan "  
     {    
@@ -33,13 +41,14 @@ test "destruir las celulas"
     }
 test "Nr.1:Hacer que frank contraiga malaria de 800 células dañadas"
     {
-	 frank.contraerEnfermedad(malaria2)
-	 malaria2.causarEfecto(frank)
+	 frank.contraerEnfermedad(malariapolenta)
+	 malariapolenta.causarEfecto(frank)
      assert.equals(800,frank.temperatura())
     }
-test "Nro.2:Hacer que una malaria(la que contrajo Logan se reproduzca"
+test "Nro.2:Hacer que una malaria(la que contrajo Logan se reproduzca)"
     {
-	
+	 logan.contraerEnfermedad(malaria)
+	 assert.equals(6000000,malaria.reproducirCelulas())
     }
 test "Nro.3:Hacer que Logan viva un día de si vida"
     {

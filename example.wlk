@@ -5,8 +5,8 @@
 class Persona
    {	
 	var enfermedades=[]
-	var  property temp=36
-	var  property celulasDelCuerpo=2000000
+	var  property temp
+	var  property celulasDelCuerpo
 	
 	
 	method contraerEnfermedad(enfer) 
@@ -34,11 +34,11 @@ class Persona
 
 class EnfermedadInfecciosa  //malaria y otitis son infecciosas
    { 
-	var  property celulasQueAmenazo = 0
+	var  property celulasQueAmenazo 
 	
 	method causarEfecto(persona) = persona.incrementarTemp(celulasQueAmenazo/1000)	
 	
-	method reproduccionDeCelulas() {celulasQueAmenazo=2*celulasQueAmenazo}
+	method reproducirCelulas() {celulasQueAmenazo=2*celulasQueAmenazo}
 	
 	method agresiva(persona) = return celulasQueAmenazo > (0.1)*persona.celulasEnElCuerpo()		
 	
@@ -60,12 +60,7 @@ class EnfermedadAutoinmune  //lupus es autoInmune
 	 method celulasQueAfecto() = return celulasQueAmenazo		     
     }
     
-    const logan = new Persona()
-    const frank = new Persona()
-    const malaria = new EnfermedadInfecciosa()
-    const otitis = new EnfermedadInfecciosa()
-    const lupus = new EnfermedadAutoinmune()
-    const malariaPolenta = new EnfermedadInfecciosa()
+    
     
 /*Las clases enfermedades Infecciosas y AutoInmunes son polimórficas,
 porque se llaman igual los métodos en común y también tienen 
@@ -109,5 +104,3 @@ class Muerte
    }
 
 
-const house = new Medicos()
-const laMuerte = new Muerte()
