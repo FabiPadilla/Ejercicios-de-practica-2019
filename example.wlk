@@ -29,9 +29,6 @@ class Persona
 	
 	method recibirMedicamento()= enfermedades.forEach({medico => medico.atenderPaciente(self)})
 	
-	// este metodo  esta mal .revisarlo como dijo Juan Bono
-	//method estoyCurado() {enfermedades.sum( {miEnfermedad => miEnfermedad.celulasQueAmenazo()==0})}
-	
 	method curado(mienfermedad){return enfermedades.sum( {enfermedad => enfermedad.celulasQueAfecto() })==0}
    }
 
