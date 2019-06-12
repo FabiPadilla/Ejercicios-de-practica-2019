@@ -2,16 +2,14 @@ import example.*
 
 describe "efecto de logan"
     {
-    var temp=36
-    var celulasDelCuerpoL=3000000
-    var celulasDelCuerpoF=3500000
+    
+    
 	const logan = new Persona()
 	const frank = new Persona()
     const malaria = new EnfermedadInfecciosa(celulasQueAmenazo=500)
     const otitis = new EnfermedadInfecciosa(celulasQueAmenazo=100)
     const lupus = new EnfermedadAutoinmune(celulasQueAmenazo=10000)
     const malariapolenta = new EnfermedadInfecciosa(celulasQueAmenazo=800)
-    
     //const house = new JefeDepartamento()
     //const cameron = new Medicos()
     //const laMuerte = new Muerte()
@@ -19,6 +17,7 @@ describe "efecto de logan"
 test "aumentar la temperatura de Logan "  
     {    
 	 malaria.causarEfecto(logan)
+	 
      assert.equals(36.5,logan.temperatura())
     }
 test "aumentar mucho la temperatura de Logan " 
@@ -37,7 +36,7 @@ test "pasar un dia Logan "
 test "destruir las celulas"
     {
 	 lupus.causarEfecto(logan)
-	 assert.equals(0,logan.celulas(0))
+	 assert.equals(0,logan.celulasEnElCuerpo())
     }
 test "Nr.1:Hacer que frank contraiga malaria de 800 células dañadas"
     {

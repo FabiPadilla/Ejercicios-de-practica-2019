@@ -5,8 +5,8 @@
 class Persona
    {	
 	var enfermedades=[]
-	var  property temp
-	var  property celulasDelCuerpo
+	var  property temp=36
+	var  property celulasDelCuerpo=3000000
 	
 	
 	method contraerEnfermedad(enfer) 
@@ -19,7 +19,7 @@ class Persona
 	
 	method incrementarTemp(cambioDeTemp) {temp=temp + cambioDeTemp}
 	
-	method temperatura(mitemp) {temp=mitemp}
+	method temperatura() {return temp}
 
 	method viviUnDia() = enfermedades.forEach({enfer=> enfer.causarEfecto(self)})
 	
@@ -60,7 +60,7 @@ class EnfermedadAutoinmune  //lupus es autoInmune
 	 method celulasQueAfecto() = return celulasQueAmenazo		     
     }
     
-    
+   
     
 /*Las clases enfermedades Infecciosas y AutoInmunes son polimórficas,
 porque se llaman igual los métodos en común y también tienen 
@@ -100,7 +100,7 @@ class JefeDepartamento inherits Medicos{
 
 class Muerte
    {
-	method causarEfecto(persona){ return persona.temperatura(0)}
+	method causarEfecto(persona){ return persona.temperatura()}
    }
 
 
