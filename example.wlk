@@ -2,7 +2,7 @@
   Parte 1: Clases y Colecciones
 */
 class Persona
-   {	
+   {	 
 	var enfermedades=[]
 	var  property temp
 	var  property celulas
