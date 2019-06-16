@@ -2,7 +2,7 @@
   Parte 1: Clases y Colecciones
 */
 class Persona
-   {	 
+   {	
 	var enfermedades=[]
 	var  property temp
 	var  property celulas
@@ -21,22 +21,28 @@ class Persona
 	method incrementarTemp(cambioDeTemp) {temp+=cambioDeTemp}
 	
     //cada día que vive una persona con su enfermedad se producen sus efectos.
-	method viviUnDia() { enfermedades.forEach({enfer=> enfer.causaEfecto(self)}) }
+	method viviUnDia() { enfermedades.forEach({enfer=> enfer.causaEfecto(self)})}
 	
-	/*es utilizada por la enfermedad infecciosa */
+	
+	/*es utilizada por la enfermedad autoInmune */
 	method destruirCelulas(c) {celulas = celulas - c}
 	
 	/*4a.enfermedad que más células afecte */
-	method enfermedadQueMasAfecta() {return enfermedades.max({enfermedad => enfermedad.celulasQueAmenazo()}) }
+	method enfermedadQueMasAfecta() 
+	{return enfermedades.max({enfermedad => enfermedad.celulasQueAmenazo()})}
+	
+	
+	//revisar, como resolverlo?
+	method medicina(dosis)
+	{enfermedades.forEach({enfermedad => enfermedad.atenauda(dosis)}) }
 	
 	
 	
-	method recibirMedicamento(m)= enfermedades.forEach({medico => medico.atenderPaciente(self)})
+	//revisar,esta bien planteado?
+	method curado(mienfermedad)
+	{enfermedades.sum({enfermedad => enfermedad.celulasQueAmenazo(0)})}
 	
-	
-	
-	method curado(mienfermedad){return enfermedades.sum( {enfermedad => enfermedad.celulasQueAmenazo(0) })}  
-   }
+	}
 
 class EnfermedadInfecciosa  //malaria y otitis son infecciosas
    { 
@@ -46,19 +52,22 @@ class EnfermedadInfecciosa  //malaria y otitis son infecciosas
 	como parámetro para que exista polimorifismo con cualquier enfermedad que causa 
 	efecto.Deben tener mismo nombre y si retornan un valor deben respetarlo en la
 	 estructura*/
-	method causaEfecto(persona) {
-		persona.incrementarTemp(celulasQueAmenazo/1000)	
-		}
+	method causaEfecto(persona) 
+	{persona.incrementarTemp(celulasQueAmenazo/1000)}
 	
 	/*se reproducen a si mismas*/
-	method reproducirCelulas() {celulasQueAmenazo = 2*celulasQueAmenazo}
+	method reproducirCelulas(){celulasQueAmenazo = 2*celulasQueAmenazo}
 	
-	/*es agresiva cuando la cantidad de células afectadas supera el 10% de las células totales del cuerpo*/
-	method agresiva(persona) { return celulasQueAmenazo > (0.1)*persona.celulas() }	
+	/*es agresiva cuando la cantidad de células afectadas 
+	supera el 10% de las células totales del cuerpo*/
+	method agresiva(persona) {return celulasQueAmenazo > (0.1)*persona.celulas()}	
 	
-	method antenuada(){}
 	
-	method  celulasQueAfecto(celulas) {celulasQueAmenazo=celulas}
+	
+	/*tendria que reducir las células en función de la dosis 
+	que la persona reciba.Como hago?
+	method atenuada(){}*/
+	
    }
    
 class EnfermedadAutoinmune  //lupus es autoInmune
@@ -66,50 +75,42 @@ class EnfermedadAutoinmune  //lupus es autoInmune
 	var  property celulasQueAmenazo
 	var property dia = 0
 	
-	//method causaEfecto(persona){
-		//persona.incrementarTemp(2000)
-	//}
-	
 	 /*efecto que provoca en la persona,destruye la cantidade de celulas amenazadas 
 	 Debe permitir recibir cualquier persona como parámetro para que exista
 	 polimorifismo con cualquier enfermedad que causa efecto.Deben tener mismo 
 	 nombre y si retornan un valor deben respetarlo en la estructura*/
-	 method causaEfecto(persona){
-	 	
-        // persona.celulasDelCuerpo()- celulasQueAmenazo
-		persona.destruirCelulas(celulasQueAmenazo)
-		dia += 1
+	 method causaEfecto(persona)
+	 {	
+	  persona.destruirCelulas(celulasQueAmenazo)
+	  dia += 1
 	 } 
 	 
-	 method agresiva(persona) { return 30*persona.viviUnDia() }
+	 method agresiva(persona) {return 30*persona.viviUnDia() }
 	 
-	 method antenuada(){}
 	 
-	 method celulasQueAfecto(celulas) {celulasQueAmenazo=celulas}	
-	  
+	 /*tendria que reducir las células en función de la dosis que 
+	 la persona reciba.Como hago?
+	 method atenuada(){celulasQueAmenazo -persona.medicamento(dosis) }*/
+	   
 	    
     }
-    
-      
-/*Las clases enfermedades Infecciosas y AutoInmunes son polimórficas,
-porque se llaman igual los métodos en común y también tienen 
-retornos o no aquellos métodos que se llaman igual.
-Utilizo una variable del tipo enfermedad en la clase
-Persona ,pero no significa que exista polimorfismo en esta Clase ,solo 
-la utilizo porque cada enfermedad puede devolverme las células que 
-amenaza y así utlizarla en el método celulasEnElCuerpo().
- */
+        
+/*Las clases enfermedades Infecciosas y AutoInmunes son polimórficas.
+Respetan la estructura polimórfica,al llamarse igual los métodos en 
+común y también tienen retornos o no aquellos métodos que se llaman igual.*/
 
 
 /*Parte 2: Herencia - Redefinición - Super */
 
 class Medicos inherits Persona{
 	
-	var property medicamento=150
+	var property dosis
 	
-	method atendePaciente(persona) {return  persona.recibirMedicamento(15*medicamento)}
-		
-	method contagiar(enfermedad){enfermedad.causarEfecto(self)}
+	method atendePaciente(persona) {persona.medicina(15*dosis)}
+	
+	//como contrae una enfermedad los medicos?	
+	override method contraerEnfermedad(enfermedad){}
+	
 	
 }
 
@@ -119,9 +120,60 @@ class JefeDepartamento inherits Medicos{
 	
 	method teOrdeno(subordinado){return subordinado.atendePaciente(persona)}
 	
+
+	
+	
 }
 
 class LaMuerte
    {
-	method causaEfecto(persona){ return persona.temp(0)}
+	method causaEfecto(persona){persona.temp(0)}
    }
+
+/*Para pensar:
+6A)Aparece una nueva enfermedad que cualquier persona puede contraer.
+ 
+¿Qué deberíamos saber de ella para poder representarla? 
+
+RESPUESTA:Tiene que tener los mismos métodos,respetando el nombre,la cantidad de 
+parámetros si tienen y respetar si son getters o setters.
+ 
+ 
+¿Cuáles serían las alternativas de solución?
+
+RESPUESTA:Deben ser polimórficas,de la siguiente manera:
+
+class NuevaEnfermedad
+{
+ method causaEfecto(enfermedad)
+ {el mensaje debe hacer una acción con el objeto enfermedad}
+
+ method agresiva(persona){return un valor}
+ }
+ 
+ 
+ 
+6B)
+¿Qué pasaría si todas las enfermedades matan las células que afectan?
+ 
+RESPUESTA:
+
+ 
+¿Y si las autoinmunes tuvieran otro efecto adicional?
+ 
+RESPUESTA:Si el segundo efecto respeta la estructura polimórfica lo resolverá.
+ 
+6C)Ahora queremos modelar una enfermedad como el sida, 
+que es tanto infecciosa como autoinmune. ¿Cómo lo solucionamos?  
+  
+RESPUESTA:
+  
+ 
+
+ */
+ 
+ 
+ 
+ 
+ 
+ 

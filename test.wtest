@@ -1,6 +1,6 @@
 import example.*
 
-describe "efecto de logan"
+describe "efectos de logan,frank y los doctores"
     {
 	const logan = new Persona()
 	const frank = new Persona()
@@ -8,7 +8,7 @@ describe "efecto de logan"
     const otitis = new EnfermedadInfecciosa()
     const lupus = new EnfermedadAutoinmune(celulasQueAmenazo=10000)
     const house = new JefeDepartamento()
-    const cameron = new Medicos()
+    //const cameron = new Medicos()
     const muerte = new LaMuerte()
     
 test "Caso de prueba hecho por Lucas:Aumentar la temperatura de Logan "  
@@ -20,39 +20,45 @@ test "Caso de prueba hecho por Lucas:Aumentar la temperatura de Logan "
      
 	 malaria.causaEfecto(logan)
 	 
-	 
-     assert.equals(36.5,logan.temp
-     	()
-     )
+     assert.equals(36.5,logan.temp())
     }
 test "Caso de prueba hecho por Lucas:Aumentar mucho la temperatura de Logan " 
     { 
      logan.temp(36)
+     logan.celulas(3000000)
      
-     lupus.celulasQueAmenazo(100)
+     malaria.celulasQueAmenazo(500)
+     otitis.celulasQueAmenazo(100)
+     lupus.celulasQueAmenazo(10000)
      
+     logan.contraerEnfermedad(malaria)  
+     logan.contraerEnfermedad(otitis)
      logan.contraerEnfermedad(lupus)  
-     	 
+     
+     malaria.causaEfecto(logan)
+     otitis.causaEfecto(logan)	 
 	 lupus.causaEfecto(logan)
+	 logan.viviUnDia()
+	 
      assert.equals(2036,logan.temp())
     }
 test "Nr.1:Hacer que frank contraiga malaria de 800 células dañadas"//OK
     {
      frank.temp(36)
-     malaria.celulasQueAfecto(800)
+     malaria.celulasQueAmenazo(800)
 	 frank.contraerEnfermedad(malaria)
 	 malaria.causaEfecto(frank)
      assert.equals(36.8,frank.temp())
     }
 test "Nro.2:Hacer que una malaria(la que contrajo Logan se reproduzca)"//OK
     {
-     malaria.celulasQueAfecto(500)
+     malaria.celulasQueAmenazo(500)
 	 logan.contraerEnfermedad(malaria)
 	 malaria.reproducirCelulas()
 	 assert.equals(1000,malaria.celulasQueAmenazo())
     }
 test "Nro.3:Hacer que Logan viva un día de su vida"
-//preguntar.Es lo que pide el enunciado
+//preguntar.Es lo que pide el enunciado?
     {
      logan.temp(36)
      logan.celulas(3000000)
@@ -80,9 +86,9 @@ enfermedades agresivas" //preguntar ,es lo que pide el enunciado?
      logan.temp(36)
      logan.celulas(3000000)
      
-     malaria.celulasQueAfecto(500)
-     otitis.celulasQueAfecto(100)
-     lupus.celulasQueAfecto(10000)
+     malaria.celulasQueAmenazo(500)
+     otitis.celulasQueAmenazo(100)
+     lupus.celulasQueAmenazo(10000)
      
      logan.contraerEnfermedad(malaria)
 	 logan.contraerEnfermedad(lupus)
@@ -137,6 +143,8 @@ temperatura es 45° o si tiene menos de 1.000.000 de células"
     }
     
 /*Parte 2 */
+
+/* 
 test "Nro.1:Hacer que la malaria se atenúe en 100 células 
 y el lupus en 500 células."
     {
@@ -146,32 +154,39 @@ y el lupus en 500 células."
 test "Nro.2:Hacer que Cameron atienda a Logan."
     {
      cameron.atendePaciente(logan)
-     logan.recibirMedicamento(2250)
-     assert.that(cameron.atendePaciente(logan))	
+     
+     assert.that(logan.medicamento(2250))	
     	
     }
-    
+   
+  
 test"Nro.3:Existen médicos que son jefes de departamento, 
 como House,que cuando tienen que atender a un paciente, 
 no le administran medicación sino que les dicen a uno de sus
 subordinados que lo hagan. Hacer que House atienda a Cameron."
+
     {
     house.teOrdeno(cameron)
     cameron.atendePaciente(self)
-    assert.that(house.atendePaciente(cameron))
-}
+    assert.that()
+    }
+*/
+
 test "Nro.4:Hacer que House contraiga la Muerte. 
 La Muerte actúa disminuyendo toda la temperatura de la 
 persona y no se atenúa con ningún medicamento.
 No afecta ninguna célula(no tiene sentido,ya que afecta
 a la persona entera) y es extremadamente agresiva"//OK
 {
+ /*falla el test cuando descomento el metodo contraerEnfermedad	
+ de los medicos*/
  house.temp(36)
  
- house.contraerEnfermedad(muerte)	
+ house.contraerEnfermedad(muerte)
  
  muerte.causaEfecto(house)
  
  assert.equals(0,house.temp())
+
 }
 }
