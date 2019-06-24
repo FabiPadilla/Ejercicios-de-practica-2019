@@ -8,40 +8,10 @@ describe "efectos de logan,frank y los doctores"
     const otitis = new EnfermedadInfecciosa()
     const lupus = new EnfermedadAutoinmune(celulasQueAmenazo=10000)
     const house = new JefeDepartamento()
-    //const cameron = new Medicos()
+    const cameron = new Medicos()
     const muerte = new LaMuerte()
     
-test "Caso de prueba hecho por Lucas:Aumentar la temperatura de Logan "  
-    {  
-     logan.temp(36)
-     malaria.celulasQueAmenazo(500)
-     
-     logan.contraerEnfermedad(malaria)  
-     
-	 malaria.causaEfecto(logan)
-	 
-     assert.equals(36.5,logan.temp())
-    }
-test "Caso de prueba hecho por Lucas:Aumentar mucho la temperatura de Logan " 
-    { 
-     logan.temp(36)
-     logan.celulas(3000000)
-     
-     malaria.celulasQueAmenazo(500)
-     otitis.celulasQueAmenazo(100)
-     lupus.celulasQueAmenazo(10000)
-     
-     logan.contraerEnfermedad(malaria)  
-     logan.contraerEnfermedad(otitis)
-     logan.contraerEnfermedad(lupus)  
-     
-     malaria.causaEfecto(logan)
-     otitis.causaEfecto(logan)	 
-	 lupus.causaEfecto(logan)
-	 logan.viviUnDia()
-	 
-     assert.equals(2036,logan.temp())
-    }
+
 test "Nr.1:Hacer que frank contraiga malaria de 800 células dañadas"//OK
     {
      frank.temp(36)
@@ -66,9 +36,9 @@ test "Nro.3:Hacer que Logan viva un día de su vida"
      logan.incrementarTemp(0.5)
      logan.incrementarTemp(0.1)
      
-     malaria.celulasQueAfecto(500)
-     otitis.celulasQueAfecto(100)
-     lupus.celulasQueAfecto(10000)
+     malaria.celulasQueAmenazo(500)
+     otitis.celulasQueAmenazo(100)
+     lupus.celulasQueAmenazo(10000)
      
      logan.contraerEnfermedad(malaria)
 	 logan.contraerEnfermedad(lupus)
@@ -144,18 +114,38 @@ temperatura es 45° o si tiene menos de 1.000.000 de células"
     
 /*Parte 2 */
 
-/* 
+
 test "Nro.1:Hacer que la malaria se atenúe en 100 células 
 y el lupus en 500 células."
     {
-     
+     malaria.celulasQueAmenazo(200)
+     lupus.celulasQueAmenazo(500)
+     malaria.atenuda(100)
+     lupus.atenuada(400)
+     assert.that(malaria.celulasQueAmenazo(100))
+     assert.that(lupus.celulasQueAmenazo(500))
      
 	}
 test "Nro.2:Hacer que Cameron atienda a Logan."
     {
-     cameron.atendePaciente(logan)
+     logan.temp(36)
+     logan.celulas(3000000)
+     logan.contraerEnfermedad(malaria)
+     logan.contraerEnfermedad(otitis)
+     logan.contraerEnfermedad(lupus)
      
-     assert.that(logan.medicamento(2250))	
+     
+     malaria.celulasQueAmenazo(0)
+     otitis.celulasQueAmenazo(0)
+     lupus.celulasQueAmenazo(0)
+     
+     malaria.atenuada(0)
+     otitis.atenuada(0)
+     lupus.atenuada(0)
+     logan.curado()
+     
+     logan.recibirMedicina(0)
+     assert.that(cameron.atendePaciente(logan))	
     	
     }
    
@@ -166,11 +156,15 @@ no le administran medicación sino que les dicen a uno de sus
 subordinados que lo hagan. Hacer que House atienda a Cameron."
 
     {
-    house.teOrdeno(cameron)
-    cameron.atendePaciente(self)
-    assert.that()
+    malaria.celulasQueAmenazo(100)
+    cameron.contraerEnfermedad(malaria)
+    house.contratarEmpleado(cameron)
+    cameron.recibirMedicina(6)
+    malaria.atenuada(90)
+    house.atendePaciente(cameron)
+    assert.that(cameron.curado())
     }
-*/
+
 
 test "Nro.4:Hacer que House contraiga la Muerte. 
 La Muerte actúa disminuyendo toda la temperatura de la 
@@ -190,3 +184,4 @@ a la persona entera) y es extremadamente agresiva"//OK
 
 }
 }
+

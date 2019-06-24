@@ -32,16 +32,17 @@ class Persona
 	{return enfermedades.max({enfermedad => enfermedad.celulasQueAmenazo()})}
 	
 	
-	//revisar, como resolverlo?
-	method medicina(dosis)
-	{enfermedades.forEach({enfermedad => enfermedad.atenauda(dosis)}) }
+	//REVISAR
+	method recibirMedicina(dosis)
+	{
+	enfermedades.forEach( {enfermedad => enfermedad.atenauda(dosis*15)} )
+	enfermedades.removeAllSuchThat( {enf => enf.estaCurada()} )
+	}
 	
-	
-	
-	//revisar,esta bien planteado?
-	method curado(mienfermedad)
-	{enfermedades.sum({enfermedad => enfermedad.celulasQueAmenazo(0)})}
-	
+	//REVISAR
+	method curado()
+	{enfermedades.isEmpty()}	
+		
 	}
 
 class EnfermedadInfecciosa  //malaria y otitis son infecciosas
@@ -64,9 +65,10 @@ class EnfermedadInfecciosa  //malaria y otitis son infecciosas
 	
 	
 	
-	/*tendria que reducir las células en función de la dosis 
-	que la persona reciba.Como hago?
-	method atenuada(){}*/
+	/*tendria que reducir las células en función de la dosis
+	que la persona reciba.Como hago?*/
+	
+	method atenuada(dosis){celulasQueAmenazo-=dosis}
 	
    }
    
@@ -85,19 +87,24 @@ class EnfermedadAutoinmune  //lupus es autoInmune
 	  dia += 1
 	 } 
 	 
-	 method agresiva(persona) {return 30*persona.viviUnDia() }
+	 method agresiva(persona) {return dia > 30 }
 	 
 	 
-	 /*tendria que reducir las células en función de la dosis que 
-	 la persona reciba.Como hago?
-	 method atenuada(){celulasQueAmenazo -persona.medicamento(dosis) }*/
+	 
+	 /*REVISAR SI ASI SE ATENUAN LAS ENFERMEDADES*/
+	 method atenuada(dosis){celulasQueAmenazo-=dosis}
 	   
 	    
     }
         
 /*Las clases enfermedades Infecciosas y AutoInmunes son polimórficas.
 Respetan la estructura polimórfica,al llamarse igual los métodos en 
-común y también tienen retornos o no aquellos métodos que se llaman igual.*/
+común y también tienen retornos o no aquellos métodos que se llaman igual.
+
+Se dice que hay bajo acoplamiento entre Persona y  las Enfermedades.
+La Persona quien le envia mensajes no nota diferencia entre las 
+enfermedades y es en este momento donde se aprovecha el polimorfismo.
+*/
 
 
 /*Parte 2: Herencia - Redefinición - Super */
@@ -105,30 +112,46 @@ común y también tienen retornos o no aquellos métodos que se llaman igual.*/
 class Medicos inherits Persona{
 	
 	var property dosis
+	var property cant
 	
-	method atendePaciente(persona) {persona.medicina(15*dosis)}
+	method atendePaciente(persona) 
+	{
+	 if ( enfermedades.size()>1 )
+	 {persona.recibirMedicina(dosis)}
+	 else throw new Exception("No está enfermo")
+	}
 	
-	//como contrae una enfermedad los medicos?	
-	override method contraerEnfermedad(enfermedad){}
-	
-	
+	/*COMO CONTRAE UNA ENFERMEDAD UN MEDICO?*/	
+	override method contraerEnfermedad(enfermedad)
+	{
+     super(enfermedad)
+     self.atendePaciente(self)
+	}
 }
 
 class JefeDepartamento inherits Medicos{
 	
 	var property persona
+	var empleados=[]
 	
-	method teOrdeno(subordinado){return subordinado.atendePaciente(persona)}
+	method contratarEmpleado(empleado){empleados.add(empleado)}
 	
-
+	override method atendePaciente(per){
 	
+	empleados.anyOne( {empleado => empleado.atendePaciente(per)} )
+	
+	}
 	
 }
 
 class LaMuerte
    {
 	method causaEfecto(persona){persona.temp(0)}
-   }
+	
+	method curado(){return false}
+	
+	method agresiva(persona){return true}
+	   }
 
 /*Para pensar:
 6A)Aparece una nueva enfermedad que cualquier persona puede contraer.
@@ -171,9 +194,5 @@ RESPUESTA:
  
 
  */
- 
- 
- 
- 
  
  
