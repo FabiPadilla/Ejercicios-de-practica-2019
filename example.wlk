@@ -68,7 +68,7 @@ class EnfermedadInfecciosa  //malaria y otitis son infecciosas
 	/*tendria que reducir las células en función de la dosis
 	que la persona reciba.Como hago?*/
 	
-	method atenuada(dosis){celulasQueAmenazo-=dosis}
+	method atenuada(dosis){celulasQueAmenazo = celulasQueAmenazo - dosis}
 	
    }
    
@@ -92,7 +92,7 @@ class EnfermedadAutoinmune  //lupus es autoInmune
 	 
 	 
 	 /*REVISAR SI ASI SE ATENUAN LAS ENFERMEDADES*/
-	 method atenuada(dosis){celulasQueAmenazo-=dosis}
+	 method atenuada(dosis){celulasQueAmenazo = celulasQueAmenazo - dosis}
 	   
 	    
     }
