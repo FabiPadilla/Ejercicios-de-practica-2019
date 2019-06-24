@@ -116,7 +116,7 @@ temperatura es 45° o si tiene menos de 1.000.000 de células"
 
 
 test "Nro.1:Hacer que la malaria se atenúe en 100 células 
-y el lupus en 500 células."
+y el lupus en 500 células."//esta mal
     {
      malaria.celulasQueAmenazo(200)
      lupus.celulasQueAmenazo(500)
@@ -126,7 +126,7 @@ y el lupus en 500 células."
      assert.that(lupus.celulasQueAmenazo(500))
      
 	}
-test "Nro.2:Hacer que Cameron atienda a Logan."
+test "Nro.2:Hacer que Cameron atienda a Logan."//esta mal
     {
      logan.temp(36)
      logan.celulas(3000000)
@@ -153,7 +153,7 @@ test "Nro.2:Hacer que Cameron atienda a Logan."
 test"Nro.3:Existen médicos que son jefes de departamento, 
 como House,que cuando tienen que atender a un paciente, 
 no le administran medicación sino que les dicen a uno de sus
-subordinados que lo hagan. Hacer que House atienda a Cameron."
+subordinados que lo hagan. Hacer que House atienda a Cameron."//esta mal
 
     {
     malaria.celulasQueAmenazo(100)
